@@ -1,0 +1,13 @@
+register commands/tag_synonym
+
+table_create Tags TABLE_PAT_KEY ShortText
+column_create Tags synonym COLUMN_SCALAR Tags
+
+table_create Memos TABLE_HASH_KEY ShortText
+column_create Memos tags COLUMN_SCALAR Tags
+
+tag_synonym_add --table Memos --column tags
+
+column_create Tags index COLUMN_INDEX Memos tags
+
+tag_synonym_delete --table Memos --column tags

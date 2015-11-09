@@ -1,0 +1,15 @@
+register commands/tag_synonym
+
+table_create Memos TABLE_HASH_KEY ShortText
+column_create Memos tags COLUMN_SCALAR ShortText
+column_create Memos synonym COLUMN_SCALAR ShortText
+
+tag_synonym_add --table Memos --column tags
+
+load --table Memos
+[
+{"_key": "Groonga", "tags": "Groonga"},
+{"_key": "Rroonga", "tags": "Groonga Ruby"}
+]
+
+select Memos --output_columns 'tags'

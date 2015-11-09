@@ -1,0 +1,20 @@
+register commands/tag_synonym
+[[0,0.0,0.0],true]
+table_create Memos TABLE_HASH_KEY ShortText
+[[0,0.0,0.0],true]
+column_create Memos tags COLUMN_SCALAR ShortText
+[[0,0.0,0.0],true]
+column_create Memos synonym COLUMN_SCALAR ShortText
+[[0,0.0,0.0],true]
+tag_synonym_add --table Memos --column tags
+[[0,0.0,0.0],[0]]
+load --table Memos
+[
+{"_key": "Groonga", "tags": "Groonga"},
+{"_key": "Rroonga", "tags": "Groonga Ruby"}
+]
+[[0,0.0,0.0],2]
+#|w| [tag-synonym] hooked column must be reference type
+#|w| [tag-synonym] hooked column must be reference type
+select Memos --output_columns 'tags'
+[[0,0.0,0.0],[[[2],[["tags","ShortText"]],["Groonga"],["Groonga Ruby"]]]]

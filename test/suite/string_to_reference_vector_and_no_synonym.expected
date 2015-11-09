@@ -1,0 +1,25 @@
+register commands/tag_synonym
+[[0,0.0,0.0],true]
+table_create Tags TABLE_PAT_KEY ShortText --default_tokenizer TokenDelimit
+[[0,0.0,0.0],true]
+load --table Tags
+[
+{"_key": "Ruby"}
+]
+[[0,0.0,0.0],1]
+table_create Memos TABLE_HASH_KEY ShortText
+[[0,0.0,0.0],true]
+column_create Memos tags COLUMN_VECTOR Tags
+[[0,0.0,0.0],true]
+tag_synonym_add --table Memos --column tags
+[[0,0.0,0.0],[0]]
+load --table Memos
+[
+{"_key": "Groonga", "tags": "Groonga"},
+{"_key": "Rroonga", "tags": "Groonga Ruby"}
+]
+[[0,0.0,0.0],2]
+#|w| [tag-synonym] couldn't open synonym column
+#|w| [tag-synonym] couldn't open synonym column
+select Memos --output_columns 'tags'
+[[0,0.0,0.0],[[[2],[["tags","Tags"]],[["Groonga"]],[["Groonga","Ruby"]]]]]

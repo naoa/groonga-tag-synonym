@@ -1,0 +1,29 @@
+register commands/tag_synonym
+[[0,0.0,0.0],true]
+table_create Tags TABLE_PAT_KEY ShortText --default_tokenizer TokenDelimit
+[[0,0.0,0.0],true]
+column_create Tags synonym COLUMN_SCALAR Tags
+[[0,0.0,0.0],true]
+table_create Memos TABLE_HASH_KEY ShortText
+[[0,0.0,0.0],true]
+column_create Memos tags COLUMN_SCALAR Tags
+[[0,0.0,0.0],true]
+load --table Tags
+[
+{"_key": "Ruby", "synonym": "Rroonga"}
+]
+[[0,0.0,0.0],1]
+tag_synonym_add --table Memos --column tags
+[[0,0.0,0.0],[0]]
+load --table Memos
+[
+{"_key": "Groonga", "tags": "Groonga"},
+{"_key": "Rroonga", "tags": "Ruby"}
+]
+[[0,0.0,0.0],2]
+select Memos --output_columns 'tags'
+[[0,0.0,0.0],[[[2],[["tags","Tags"]],["Groonga"],["Rroonga"]]]]
+delete Memos "Rroonga"
+[[0,0.0,0.0],true]
+select Memos --output_columns 'tags'
+[[0,0.0,0.0],[[[1],[["tags","Tags"]],["Groonga"]]]]

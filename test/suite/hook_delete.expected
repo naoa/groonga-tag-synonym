@@ -1,0 +1,14 @@
+register commands/tag_synonym
+[[0,0.0,0.0],true]
+table_create Tags TABLE_PAT_KEY ShortText
+[[0,0.0,0.0],true]
+column_create Tags synonym COLUMN_SCALAR Tags
+[[0,0.0,0.0],true]
+table_create Memos TABLE_HASH_KEY ShortText
+[[0,0.0,0.0],true]
+column_create Memos tags COLUMN_SCALAR Tags
+[[0,0.0,0.0],true]
+tag_synonym_add --table Memos --column tags
+[[0,0.0,0.0],[0]]
+tag_synonym_delete --table Memos --column tags
+[[0,0.0,0.0],[0]]
