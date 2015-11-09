@@ -95,7 +95,7 @@ command_tag_synonym(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **a
   GRN_TEXT_INIT(&buf, 0);
   domain = grn_ctx_at(ctx, newvalue->header.domain);
   if (domain && is_string(domain)) {
-      GRN_RECORD_INIT(&record, GRN_OBJ_VECTOR, oldvalue->header.domain);
+    GRN_RECORD_INIT(&record, GRN_OBJ_VECTOR, oldvalue->header.domain);
     grn_table_tokenize(ctx, table, GRN_TEXT_VALUE(newvalue), GRN_TEXT_LEN(newvalue), &record, GRN_TRUE);
   } else if (newvalue->header.type == GRN_UVECTOR) {
     record = *newvalue;
@@ -233,7 +233,6 @@ command_tag_synonym_add(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj
                      "hooked column must be reference type");
       return NULL;
     }
-
 
     col = grn_obj_column(ctx,
                          range,
