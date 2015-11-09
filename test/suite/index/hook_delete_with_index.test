@@ -11,3 +11,4 @@ tag_synonym_add --table Memos --column tags
 column_create Tags index COLUMN_INDEX Memos tags
 
 tag_synonym_delete --table Memos --column tags
+tag_synonym_delete --table Memos --column tags

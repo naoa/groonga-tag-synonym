@@ -179,14 +179,14 @@ command_tag_synonym_delete(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_
       grn_inspect_name(ctx, &buf, hook);
       if (GRN_TEXT_LEN(&buf) == strlen("tag_synonym") &&
           strncmp(GRN_TEXT_VALUE(&buf), "tag_synonym", GRN_TEXT_LEN(&buf)) == 0) {
-        grn_obj_delete_hook(ctx, column, GRN_HOOK_SET, 0);
-        nhooks = grn_obj_get_nhooks(ctx, column, GRN_HOOK_SET);
+        grn_obj_delete_hook(ctx, column, GRN_HOOK_SET, i);
         break;
       }
     }
     grn_obj_unlink(ctx, &data);
     grn_obj_unlink(ctx, &buf);
   }
+  nhooks = grn_obj_get_nhooks(ctx, column, GRN_HOOK_SET);
   grn_ctx_output_array_open(ctx, "RESULT", 1);
   grn_ctx_output_int32(ctx, nhooks);
   grn_ctx_output_array_close(ctx);
