@@ -222,6 +222,34 @@ command_tag_synonym_add(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj
   table = grn_ctx_get(ctx, table_name, table_len);
   column = grn_obj_column(ctx, table, column_name, column_len);
 
+  {
+    grn_obj *range;
+    grn_obj *col;
+    grn_id range_id;
+
+    range_id = grn_obj_get_range(ctx, column);
+    range = grn_ctx_at(ctx, range_id);
+
+    if (!range) {
+      GRN_PLUGIN_LOG(ctx, GRN_LOG_ERROR,
+                     "[tag-synonym] "
+                     "hooked column must be reference type");
+      return NULL;
+    }
+
+
+    col = grn_obj_column(ctx,
+                         range,
+                         SYNONYM_COLUMN_NAME,
+                         SYNONYM_COLUMN_NAME_LEN);
+    if (!col) {
+      GRN_PLUGIN_LOG(ctx, GRN_LOG_ERROR,
+                     "[tag-synonym] "
+                     "couldn't open synonym column");
+      return NULL;
+    }
+  }
+
   proc = grn_ctx_get(ctx, "tag_synonym", -1);
   grn_obj_add_hook(ctx, column, GRN_HOOK_SET, 0, proc, 0);
 
