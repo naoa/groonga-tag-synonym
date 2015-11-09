@@ -102,15 +102,14 @@ command_tag_synonym(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **a
   }
 
   if (is_string(domain) || newvalue->header.type == GRN_UVECTOR) {
-      GRN_RECORD_INIT(newvalue, GRN_OBJ_VECTOR, oldvalue->header.domain);
-
     grn_obj value;
+
+    GRN_RECORD_INIT(newvalue, GRN_OBJ_VECTOR, oldvalue->header.domain);
     GRN_UINT32_INIT(&value, 0);
     n = grn_vector_size(ctx, &record);
     for (i = 0; i < n; i++) {
       grn_id tid;
       tid = grn_uvector_get_element(ctx, &record, i, NULL);
-
       GRN_BULK_REWIND(&value);
       grn_obj_get_value(ctx, column, tid, &value);
       if (GRN_UINT32_VALUE(&value)) {
@@ -147,7 +146,6 @@ command_tag_synonym_delete(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_
 {
   grn_obj *var, *table, *column;
   unsigned int nhooks = 0;
-
   char *table_name = NULL;
   unsigned int table_len = 0;
   char *column_name = NULL;
@@ -163,7 +161,6 @@ command_tag_synonym_delete(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_
     column_name = GRN_TEXT_VALUE(var);
     column_len = GRN_TEXT_LEN(var);
   }
-
   table = grn_ctx_get(ctx, table_name, table_len);
   column = grn_obj_column(ctx, table, column_name, column_len);
 
@@ -203,7 +200,6 @@ command_tag_synonym_add(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj
 {
   grn_obj *var, *proc, *table, *column;
   unsigned int nhooks = 0;
-
   char *table_name = NULL;
   unsigned int table_len = 0;
   char *column_name = NULL;
