@@ -6,7 +6,7 @@ Groongaの参照型カラムへのデータセット時に、投入データと�
 
 ### ```tag_synonym_add```
 
-投入タグに対してを同義語変換したいカラムにHOOKを登録します。
+投入タグに対して同義語変換したいカラムにHOOKを登録します。
 
 ```
 tag_synonym_add --table Memos --column tags
@@ -45,7 +45,7 @@ select Memos --output_columns 'tags'
 
 #### 制限
 HOOKさせるカラムは他のテーブルへの参照型でないといけません。
-また、参照先のテーブルに``synonym``カラムが必要です。
+また、参照先のテーブルに``synonym``カラムが必要です。``synonym``カラムは参照型である必要があります。
 
 以下のように参照先のテーブルにTokenDelimitトークナイザを指定しておくことにより、入力時は空白区切の文字列であっても構いません。(Mroongaでの利用を想定)
 
