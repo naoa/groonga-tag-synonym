@@ -73,8 +73,6 @@ command_tag_synonym(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **a
     return NULL;
   }
 
-  GRN_TEXT_INIT(&buf, 0);
-
   table = grn_ctx_at(ctx, oldvalue->header.domain);
   if (table && !is_table(table)) {
     GRN_PLUGIN_LOG(ctx, GRN_LOG_WARNING,
@@ -94,6 +92,7 @@ command_tag_synonym(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **a
     return NULL;
   }
 
+  GRN_TEXT_INIT(&buf, 0);
   domain = grn_ctx_at(ctx, newvalue->header.domain);
   if (domain && is_string(domain)) {
       GRN_RECORD_INIT(&record, GRN_OBJ_VECTOR, oldvalue->header.domain);
@@ -104,23 +103,22 @@ command_tag_synonym(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **a
 
   if (is_string(domain) || newvalue->header.type == GRN_UVECTOR) {
       GRN_RECORD_INIT(newvalue, GRN_OBJ_VECTOR, oldvalue->header.domain);
-    GRN_BULK_REWIND(&buf);
-    grn_inspect(ctx, &buf, &record);
 
+    grn_obj value;
+    GRN_UINT32_INIT(&value, 0);
     n = grn_vector_size(ctx, &record);
     for (i = 0; i < n; i++) {
       grn_id tid;
-      grn_obj value;
       tid = grn_uvector_get_element(ctx, &record, i, NULL);
 
-      GRN_UINT32_INIT(&value, 0);
+      GRN_BULK_REWIND(&value);
       grn_obj_get_value(ctx, column, tid, &value);
       if (GRN_UINT32_VALUE(&value)) {
         tid = GRN_UINT32_VALUE(&value);
       }
       grn_uvector_add_element(ctx, newvalue, tid, 0);
-      grn_obj_unlink(ctx, &value);
     }
+    grn_obj_unlink(ctx, &value);
   } else {
     grn_id tid;
     grn_obj value;
