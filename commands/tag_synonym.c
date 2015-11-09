@@ -69,7 +69,7 @@ command_tag_synonym(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **a
   grn_obj *column;
   int i,n;
 
-  if (GRN_BULK_VSIZE(newvalue) == 0) {
+  if (GRN_BULK_VSIZE(newvalue) == 0 || GRN_INT32_VALUE(flags) == 0) {
     return NULL;
   }
 
@@ -194,6 +194,11 @@ command_tag_synonym_delete(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_
   return NULL;
 }
 
+typedef struct {
+  grn_id target;
+  unsigned int section;
+} default_set_value_hook_data;
+
 static grn_obj *
 command_tag_synonym_add(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **args,
                         grn_user_data *user_data)
@@ -247,7 +252,14 @@ command_tag_synonym_add(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj
   }
 
   proc = grn_ctx_get(ctx, "tag_synonym", -1);
-  grn_obj_add_hook(ctx, column, GRN_HOOK_SET, 0, proc, 0);
+  {
+    grn_obj data;
+    default_set_value_hook_data hook_data = { grn_obj_id(ctx, proc), 0 };
+    GRN_TEXT_INIT(&data, GRN_OBJ_DO_SHALLOW_COPY);
+    GRN_TEXT_SET_REF(&data, &hook_data, sizeof(hook_data));
+    grn_obj_add_hook(ctx, column, GRN_HOOK_SET, 0, proc, &data);
+    grn_obj_unlink(ctx, &data);
+  }
 
   grn_ctx_output_array_open(ctx, "RESULT", 1);
   nhooks = grn_obj_get_nhooks(ctx, column, GRN_HOOK_SET);
