@@ -251,7 +251,7 @@ command_tag_synonym_add(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj
   grn_obj_add_hook(ctx, column, GRN_HOOK_SET, 0, proc, 0);
 
   grn_ctx_output_array_open(ctx, "RESULT", 1);
-  nhooks = grn_obj_get_nhooks(ctx, table, GRN_HOOK_INSERT);
+  nhooks = grn_obj_get_nhooks(ctx, table, GRN_HOOK_SET);
   grn_ctx_output_int32(ctx, nhooks);
   grn_ctx_output_array_close(ctx);
 
