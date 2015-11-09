@@ -1,0 +1,24 @@
+register commands/tag_synonym
+
+table_create Tags TABLE_PAT_KEY ShortText --default_tokenizer TokenDelimit
+column_create Tags synonym COLUMN_SCALAR Tags
+
+load --table Tags
+[
+{"_key": "Ruby", "synonym": "Rroonga"}
+]
+
+table_create Memos TABLE_HASH_KEY ShortText
+column_create Memos tags COLUMN_VECTOR Tags
+
+tag_synonym_add --table Memos --column tags
+column_create Tags index COLUMN_INDEX Memos tags
+
+load --table Memos
+[
+{"_key": "Groonga", "tags": "Groonga"},
+{"_key": "Rroonga", "tags": "Groonga Ruby"}
+]
+
+select Memos --filter 'tags @ "Rroonga"' --output_columns 'tags'
+select Tags
