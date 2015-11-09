@@ -4,7 +4,7 @@ Groongaの参照型カラムへのデータセット時に、投入データと�
 
 タグの同義語変換などに利用することができます。
 
-## ```tag_synonym_add```
+### ```tag_synonym_add```
 
 投入タグに対してを同義語変換したいカラムにHOOKを登録します。
 
@@ -43,7 +43,7 @@ select Memos --output_columns 'tags'
 [[0,0.0,0.0],[[[2],[["tags","Tags"]],[["Groonga"]],[["Groonga","Rroonga"]]]]]
 ```
 
-### 制限
+#### 制限
 HOOKさせるカラムは他のテーブルへの参照型でないといけません。
 また、参照先のテーブルに``synonym``カラムが必要です。
 
@@ -61,7 +61,7 @@ select Memos --output_columns 'tags'
 [[0,0.0,0.0],[[[2],[["tags","Tags"]],[["Groonga"]],[["Groonga","Rroonga"]]]]]
 ```
 
-## ```tag_synonym_delete```
+### ```tag_synonym_delete```
 カラムに登録したtag_synonymフックを解除します。
 
 ```
