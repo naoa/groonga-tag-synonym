@@ -14,7 +14,7 @@ load --table Tags
 ]
 [[0,0.0,0.0],1]
 tag_synonym_add --table Memos --column tags
-[[0,0.0,0.0],[0]]
+[[0,0.0,0.0],[1]]
 load --table Memos
 [
 {"_key": "Groonga", "tags": "Groonga"},
