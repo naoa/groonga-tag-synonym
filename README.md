@@ -11,7 +11,7 @@ Groongaの参照型カラムへのデータセット時に、投入データと�
 
 ```
 tag_synonym_add --table Memos --column tags
-[[0,0.0,0.0],[1]]
+[[0,0.0,0.0],1]
 ```
 
 あらかじめタグテーブル(語彙表)にsynonymカラムを作り、変換後の値を入れておくことにより、データ投入時にその値に変換されます。以下の例では、Ruby=Rroongaと登録しておくことにより、RubyがRroongaに変換して登録されています。
@@ -33,7 +33,7 @@ table_create Memos TABLE_HASH_KEY ShortText
 column_create Memos tags COLUMN_VECTOR Tags
 [[0,0.0,0.0],true]
 tag_synonym_add --table Memos --column tags
-[[0,0.0,0.0],[0]]
+[[0,0.0,0.0],0]
 load --table Memos
 [
 {"_key": "Groonga", "tags": ["Groonga"]},
@@ -69,7 +69,7 @@ select Memos --output_columns 'tags'
 
 ```
 tag_synonym_delete --table Memos --column tags
-[[0,0.0,0.0],[0]]
+[[0,0.0,0.0],0]
 ```
 
 

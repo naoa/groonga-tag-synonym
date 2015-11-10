@@ -16,7 +16,7 @@ column_create Memos tags COLUMN_VECTOR Tags
 column_create Tags index COLUMN_INDEX Memos tags
 [[0,0.0,0.0],true]
 tag_synonym_add --table Memos --column tags
-[[0,0.0,0.0],[2]]
+[[0,0.0,0.0],2]
 load --table Memos
 [
 {"_key": "Groonga", "tags": "Groonga"},
