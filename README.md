@@ -50,6 +50,8 @@ HOOKさせるカラムは他のテーブルへの参照型でないといけま�
 
 Indexカラムの作成よりも後に登録してください。Indexカラムを再作成した場合、再度HOOKを登録しなおす必要があります。(HOOKがIndexの後ろに回ってしまうため。)
 
+カラムの削除前にHOOKを削除してください。
+
 以下のように参照先のテーブルにTokenDelimitトークナイザを指定しておくことにより、入力時は空白区切の文字列であっても構いません。(Mroongaでの利用を想定)
 
 ```
@@ -99,4 +101,4 @@ Naoya Murakami naoya@createfield.com
 
 ## License
 
-LGPL 2.1. See COPYING-LGPL-2.1 for details.
+LGPL 2.1. See COPYING for details.
