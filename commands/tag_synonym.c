@@ -135,7 +135,6 @@ command_tag_synonym(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **a
     grn_obj_unlink(ctx, &value);
   }
   grn_obj_unlink(ctx, &buf);
-  grn_obj_unlink(ctx, &record);
 
   return NULL;
 }
