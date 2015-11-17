@@ -128,6 +128,9 @@ command_tag_synonym(grn_ctx *ctx, GNUC_UNUSED int nargs, GNUC_UNUSED grn_obj **a
     GRN_UINT32_INIT(&value, 0);
     grn_obj_get_value(ctx, column, tid, &value);
     if (GRN_UINT32_VALUE(&value)) {
+      GRN_PLUGIN_LOG(ctx, GRN_LOG_INFO,
+                     "[tag-synonym] "
+                     "changed: tid %d -> %d", tid, GRN_UINT32_VALUE(&value));
       tid = GRN_UINT32_VALUE(&value);
       GRN_BULK_REWIND(newvalue);
       GRN_RECORD_SET(ctx, newvalue, tid);
